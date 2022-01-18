@@ -4,7 +4,7 @@
         <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
 
-        <title>Example Student's HCDE 439 Physical Computing Page!</title> 
+        <title>Mileena's HCDE 439 Physical Computing Page!</title> 
 
         <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
 
@@ -12,14 +12,132 @@
     <body> 
 
         <div class="header">
-            <h1>Example Student's Assignment 1!</h1>
+            <h1>Mileena Ros's Assignment 1!</h1>
             <p>
-            <img src="red-panda.jpg" width=400></a>
+            <img src="assignment1-circuit.heic" width=400></a>
+            </p>
+            <p>My circuit, using a red, yellow, and blue LED.</p>
+            <p>
+            Here is all of my documentation for Assignment 1!
+            </p>
+            <p>Here is all of my code:</p>
+            <p class="code">
+                int timer = 100;            // timing of music piece
+
+                void setup() {
+                  // put your setup code here, to run once:
+                  pinMode(8, OUTPUT);       // sets the digital pin 8 as an output (Red LED)
+                  pinMode(9, OUTPUT);       // sets the digital pin 9 as an output (Yellow LED)
+                  pinMode(10, OUTPUT);      // sets the digital pin 10 as an output (Blue LED)
+                }
+                
+                void loop() {
+                  // put your main code here, to run repeatedly:
+                  // representation of the musical notes of twinkle twinkle little star
+                  // red = A
+                  // yellow = E
+                  // blue = F#
+                  // red & yellow = D
+                  // yellow & blue = C#
+                  // red & blue = B
+                  
+                  line1();    // calls line 1 method
+                  line2();    // calls line 2 method
+                  line3();    // calls line 3 method
+                  line3();
+                  line1();
+                  line2();
+                }
+                
+                // the notes for "twinkle twinkle little star"
+                void line1() {
+                  for (int thisPin = 8; thisPin <= 10; thisPin++) {     // loop from lowest pin (8) to highest (10)
+                    for (int repeat = 1; repeat <= 2; repeat++) {       // flash each led twice
+                      digitalWrite(thisPin, HIGH);                      // turn on LED
+                      delay(timer * 3);                                 // pause the program to keep LED on
+                      digitalWrite(thisPin, LOW);                       // turn off LED by making voltage low
+                      delay(timer);                                     // pause the program to keep LED off
+                    }
+                  }
+                  digitalWrite(9, HIGH);                                // flashes the yellow LEDs as a half note
+                  delay(timer * 6);
+                  digitalWrite(9, LOW);
+                  delay(timer);
+                }
+                
+                // the notes for "how I wonder what you are"
+                void line2() {
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the red and yellow LEDs twice as
+                    digitalWrite(8, HIGH);                              // quarter notes
+                    digitalWrite(9, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(8, LOW);
+                    digitalWrite(9, LOW);
+                    delay(timer);
+                  }
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the yellow and blue LEDs twice as
+                    digitalWrite(9, HIGH);                              // quarter notes
+                    digitalWrite(10, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(9, LOW);
+                    digitalWrite(10, LOW);
+                    delay(timer);
+                  }
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the red and blue LEDs twice as
+                    digitalWrite(8, HIGH);                              // quarter notes
+                    digitalWrite(10, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(8, LOW);
+                    digitalWrite(10, LOW);
+                    delay(timer);
+                  }
+                  digitalWrite(8, HIGH);                                // flashes the red LEDs as a half note
+                  delay(timer * 6);
+                  digitalWrite(8, LOW);
+                  delay(timer);
+                }
+                
+                // the notes for "up above the world so high/like a diamond in the sky"
+                void line3() {
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the yellow LEDs twice as quarter notes
+                    digitalWrite(9, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(9, LOW);
+                    delay(timer);
+                  }
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the red and yellow LEDs twice as
+                    digitalWrite(8, HIGH);                              // quarter notes
+                    digitalWrite(9, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(8, LOW);
+                    digitalWrite(9, LOW);
+                    delay(timer);
+                  }
+                  for (int repeat = 1; repeat <= 2; repeat++) {         // this loops flashes the yellow and blue LEDs twice as
+                    digitalWrite(9, HIGH);                              // quarter notes
+                    digitalWrite(10, HIGH);
+                    delay(timer * 3);
+                    digitalWrite(9, LOW);
+                    digitalWrite(10, LOW);
+                    delay(timer);
+                  }
+                  digitalWrite(8, HIGH);                                // this loops flashes the red and blue LEDs as a half note
+                  digitalWrite(10, HIGH);
+                  delay(timer * 6);
+                  digitalWrite(8, LOW);
+                  digitalWrite(10, LOW);
+                  delay(timer);
+                }
+                
+                // References:  Example sketch Blink and Arduino reference documentation
             </p>
             <p>
-            Here is all the documentation for assignment 1!
+                <img src="assignment1-schematic.jpg" width=400></a>
+                </p>
+                <p>My schematic.</p>
             </p>
         </div>
-        
+        <p>My circuit, using a red, yellow, and blue LED.</p>
+        <a href="https://drive.google.com/file/d/1V1u-a6XkTQlWwmWcMw8OLHZqPoylLqcT/view?usp=sharing">View my circuit in action here!</a>
     </body>
 </html>
