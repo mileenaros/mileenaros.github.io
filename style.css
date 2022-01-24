@@ -5,9 +5,9 @@ html, body {
   font-family: 'helvetica', 'arial', 'sans';
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
   font-family: 'helvetica', 'arial', 'sans';
-  }
+}
 
 
 a {
@@ -23,7 +23,7 @@ a {
 
 .header h1 {
   font-size: 50px;
-  }
+}
 
 .assignment {
   font-size: 12px;
@@ -36,11 +36,13 @@ a {
   float: left;
 }
 
-.assignment:hover { overflow:auto }
+.assignment:hover { 
+  overflow:auto 
+}
 
 .assignment a {
-    color: #000;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
 .assignment a:hover {
@@ -50,14 +52,14 @@ a {
 }
 
 .footer {
-    width: 1100px;
-    float: left;
-    padding: 300px 0px 30px 30px;
+  width: 1100px;
+  float: left;
+  padding: 300px 0px 30px 30px;
 }
 
 .widebody {
-    width: 800px;
-    padding: 0px 30px 30px 30px;
+  width: 800px;
+  padding: 0px 30px 30px 30px;
 }
 
 .widebody a:hover {
@@ -78,4 +80,16 @@ a {
   background-position: center;
   background-size: cover;
   background-repeat: repeat;
+}
+
+.profile-picture {
+  background: image("profile-picture.JPG");
+}
+
+.circuit1 {
+  background: image("a1-circuit.jpeg");
+}
+
+.schematic1 {
+  background: image("a1-schematic.jpeg");
 }
