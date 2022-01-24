@@ -82,13 +82,3 @@ a {
   background-repeat: repeat;
 }
 
-.profile-picture {
-  background: image("profile-picture.JPG");
-}
-
-.gallery {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
