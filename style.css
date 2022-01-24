@@ -74,6 +74,9 @@ a {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.demo:hover {
-  border: 1rem rgb(59, 191, 103)
+.gallery {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
