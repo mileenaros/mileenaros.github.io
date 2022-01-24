@@ -19,125 +19,125 @@
         <div class="image calculations2"></div>
         <span class="code">
 
-            // Mileena Ros
-            // HCDE 439 Winter 2022
-            // References: Button example sketch from Arduino
+            // Mileena Ros<br>
+            // HCDE 439 Winter 2022<br>
+            // References: Button example sketch from Arduino<br>
             
-            // set pin values based on circuit
-            const int R = 3;
-            const int G = 5;
-            const int B = 6;
-            const int sun = 10;
-            const int rain = 11;
-            const int buttonPin = 13;
+            // set pin values based on circuit<br>
+            const int R = 3;<br>
+            const int G = 5;<br>
+            const int B = 6;<br>
+            const int sun = 10;<br>
+            const int rain = 11;<br>
+            const int buttonPin = 13;<br>
             
-            // variable for reading the pushbutton status
-            int buttonState = 0;
+            // variable for reading the pushbutton status<br>
+            int buttonState = 0;<br>
             
-            void setup() {
-              pinMode(R, OUTPUT);
-              pinMode(G, OUTPUT);
-              pinMode(B, OUTPUT);
-              pinMode(sun, OUTPUT);
-              pinMode(rain, OUTPUT);
-              pinMode(buttonPin, INPUT);
-            }
+            void setup() {<br>
+              pinMode(R, OUTPUT);<br>
+              pinMode(G, OUTPUT);<br>
+              pinMode(B, OUTPUT);<br>
+              pinMode(sun, OUTPUT);<br>
+              pinMode(rain, OUTPUT);<br>
+              pinMode(buttonPin, INPUT);<br>
+            }<br>
             
-            void loop() {
-              // read the state of pushbutton value:
-              buttonState = digitalRead(buttonPin);
+            void loop() {<br>
+              // read the state of pushbutton value:<br>
+              buttonState = digitalRead(buttonPin);<br>
             
-              // pressing the button induces a state of sunshine
-              // check if buttonState is HIGH to see if pushbutton is pressed
-              if (buttonState == HIGH) {
-                  // no more rain: fades the blue LED from brightest to lowest value, then sets
-                  // to LOW to completely turn off
-                  for (int i = 255; i > 0; i--) {
-                    analogWrite(rain, i);
-                    delay(10);
-                  }
-                  digitalWrite(rain, LOW);
+              // pressing the button induces a state of sunshine<br>
+              // check if buttonState is HIGH to see if pushbutton is pressed<br>
+              if (buttonState == HIGH) {<br>
+                  // no more rain: fades the blue LED from brightest to lowest value, then sets<br>
+                  // to LOW to completely turn off<br>
+                  for (int i = 255; i > 0; i--) {<br>
+                    analogWrite(rain, i);<br>
+                    delay(10);<br>
+                  }<br>
+                  digitalWrite(rain, LOW);<br>
             
-                  // sunshine: fades the yellow LED from lowest value to brightest value, then sets
-                  // to HIGH to keep on
-                  for (int i = 0; i < 255; i++) {
-                    analogWrite(sun, i);
-                    delay(10);
-                  }
-                  digitalWrite(sun, HIGH);
+                  // sunshine: fades the yellow LED from lowest value to brightest value, then sets<br>
+                  // to HIGH to keep on<br>
+                  for (int i = 0; i < 255; i++) {<br>
+                    analogWrite(sun, i);<br>
+                    delay(10);<br>
+                  }<br>
+                  digitalWrite(sun, HIGH);<br>
             
-                  // rain + sunshine = rainbow! using the RGB LED, flash between the colors of the rainbow
-                  // flash bright red
-                  displayRGB(255, 0, 0);        // see displayRGB() function below
+                  // rain + sunshine = rainbow! using the RGB LED, flash between the colors of the rainbow<br>
+                  // flash bright red<br>
+                  displayRGB(255, 0, 0);        // see displayRGB() function below<br>
             
-                  // flash orange
-                  displayRGB(255, 111, 0);
+                  // flash orange<br>
+                  displayRGB(255, 111, 0);<br>
             
-                  // flash yellow
-                  displayRGB(255, 251, 0);
+                  // flash yellow<br>
+                  displayRGB(255, 251, 0);<br>
             
-                  // flash green
-                  displayRGB(29, 181, 77);
+                  // flash green<br>
+                  displayRGB(29, 181, 77);<br>
             
-                  // flashes blue
-                  displayRGB(0, 123, 255);
+                  // flashes blue<br>
+                  displayRGB(0, 123, 255);<br>
             
-                  // flashes purple
-                  displayRGB(144, 0, 255);
+                  // flashes purple<br>
+                  displayRGB(144, 0, 255);<br>
             
-                  // transitioning back to rainy weather
-                  // turns red, green, and blue LEDs in RGB LED off
-                  digitalWrite(R, 0);
-                  digitalWrite(G, 0);
-                  digitalWrite(B, 0);
+                  // transitioning back to rainy weather<br>
+                  // turns red, green, and blue LEDs in RGB LED off<br>
+                  digitalWrite(R, 0);<br>
+                  digitalWrite(G, 0);<br>
+                  digitalWrite(B, 0);<br>
             
-                  // fades the yellow LED from brightest value to lowest value, then sets to
-                  // LOW to turn off
-                  for (int i = 255; i > 0; i--) {
-                    analogWrite(sun, i);
-                    delay(10);
-                  }
-                  digitalWrite(rain, LOW);
+                  // fades the yellow LED from brightest value to lowest value, then sets to<br>
+                  // LOW to turn off<br>
+                  for (int i = 255; i > 0; i--) {<br>
+                    analogWrite(sun, i);<br>
+                    delay(10);<br>
+                  }<br>
+                  digitalWrite(rain, LOW);<br>
             
-                  // fades the blue LED from lowest value to brightest value, then sets
-                  // to HIGH to keep on
-                  for (int i = 0; i < 255; i++) {
-                    analogWrite(rain, i);
-                    delay(10);
-                  }
-                  digitalWrite(sun, HIGH);
+                  // fades the blue LED from lowest value to brightest value, then sets<br>
+                  // to HIGH to keep on<br>
+                  for (int i = 0; i < 255; i++) {<br>
+                    analogWrite(rain, i);<br>
+                    delay(10);<br>
+                  }<br>
+                  digitalWrite(sun, HIGH);<br>
             
-              } else {
-                // default "weather" is rainy, represented by flashing blue LED "raindrops"
-                // turns yellow LED off
-                digitalWrite(sun, LOW);
+              } else {<br>
+                // default "weather" is rainy, represented by flashing blue LED "raindrops"<br>
+                // turns yellow LED off<br>
+                digitalWrite(sun, LOW);<br>
                 
-                // turns red, green, and blue LEDs in RGB LED off
-                digitalWrite(R, LOW);
-                digitalWrite(G, LOW);
-                digitalWrite(B, LOW);
+                // turns red, green, and blue LEDs in RGB LED off<br>
+                digitalWrite(R, LOW);<br>
+                digitalWrite(G, LOW);<br>
+                digitalWrite(B, LOW);<br>
                 
-                // turns blue LED on, delays for 1/2s
-                digitalWrite(rain, HIGH);
-                delay(500);
+                // turns blue LED on, delays for 1/2s<br>
+                digitalWrite(rain, HIGH);<br>
+                delay(500);<br>
                 
-                // turns blue LED off, delays for 1/2s
-                digitalWrite(rain, LOW);
-                delay(500);
-              }
-            }
+                // turns blue LED off, delays for 1/2s<br>
+                digitalWrite(rain, LOW);<br>
+                delay(500);<br>
+              }<br>
+            }<br>
             
-            // takes red, green, and blue values as parameters
-            // sets the R pin to red value
-            // sets the G pin to green value
-            // sets the B pin to blue value
-            // delays for 2s
-            void displayRGB(int rVal, int gVal, int bVal) {
-              analogWrite(R, rVal);
-              analogWrite(G, gVal);
-              analogWrite(B, bVal);
-              delay(2000);
-            }
+            // takes red, green, and blue values as parameters<br>
+            // sets the R pin to red value<br>
+            // sets the G pin to green value<br>
+            // sets the B pin to blue value<br>
+            // delays for 2s<br>
+            void displayRGB(int rVal, int gVal, int bVal) {<br>
+              analogWrite(R, rVal);<br>
+              analogWrite(G, gVal);<br>
+              analogWrite(B, bVal);<br>
+              delay(2000);<br>
+            }<br>
 
         </span>
     </body>

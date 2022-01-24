@@ -44,8 +44,8 @@ a {
 }
 
 .assignment a:hover {
-  background: #F06;
-  color: #F06;
+  background: rgb(59, 191, 103);
+  color: rgb(59, 191, 103);
   text-decoration: none;
 }
 
@@ -65,7 +65,7 @@ a {
 }
 
 .widebody a:hover {
-  background: #F06;
+  background: rgb(59, 191, 103);
   color: #FFF;
   text-decoration: none;
 }
