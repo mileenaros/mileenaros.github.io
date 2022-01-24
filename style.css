@@ -1,7 +1,7 @@
 
 html, body {
   padding: 0 0 0 0;
-  margin: 30;
+  margin: 0 3rem;
   font-family: 'helvetica', 'arial', 'sans';
 }
 
@@ -86,10 +86,9 @@ a {
   background: image("profile-picture.JPG");
 }
 
-.circuit1 {
-  background: image("a1-circuit.jpeg");
+.gallery {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.schematic1 {
-  background: image("a1-schematic.jpeg");
-}
