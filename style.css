@@ -74,11 +74,3 @@ a {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.image {
-  height: 2rem;
-  width: 2rem;
-  background-position: center;
-  background-size: cover;
-  background-repeat: repeat;
-}
-
