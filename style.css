@@ -85,8 +85,8 @@ a {
   text-decoration: underline;
   margin-left: auto;
   margin-right: auto;
-  position: absolute;
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .gallery {
