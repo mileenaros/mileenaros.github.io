@@ -7,6 +7,7 @@ html, body {
 
 h1, h2, h3, h4 {
   font-family: 'helvetica', 'arial', 'sans';
+  margin: 0;
 }
 
 
@@ -78,6 +79,7 @@ a {
   padding: 1rem;
   background-color: rgb(228, 227, 227);
   font-family: 'Courier New', Courier, monospace;
+  margin: 0;
 }
 
 .demo {
@@ -90,7 +92,7 @@ a {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 1rem;
   flex-flow: column;
   background-color: rgb(228, 227, 227);
@@ -100,5 +102,5 @@ a {
 .row {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
