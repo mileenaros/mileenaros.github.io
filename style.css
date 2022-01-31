@@ -83,8 +83,10 @@ a {
 
 .demo {
   text-decoration: underline;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   position: absolute;
+  margin-top: 3rem;
 }
 
 .gallery {
@@ -100,6 +102,5 @@ a {
 
 .row {
   width: 100%;
-  justify-content: space-between;
-
+  justify-content: space-evenly;
 }
