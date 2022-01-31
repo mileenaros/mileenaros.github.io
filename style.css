@@ -90,7 +90,7 @@ a {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   padding: 1rem;
   flex-flow: column;
   background-color: rgb(228, 227, 227);
@@ -99,5 +99,5 @@ a {
 
 .row {
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
