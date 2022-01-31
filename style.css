@@ -94,7 +94,6 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin: 1rem;
   padding: 0.5rem;
   flex-flow: column;
   background-color: rgb(228, 227, 227);
