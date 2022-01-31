@@ -84,6 +84,7 @@ a {
 .demo {
   text-decoration: underline;
   margin: auto;
+  position: absolute;
 }
 
 .gallery {
@@ -99,5 +100,6 @@ a {
 
 .row {
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
+
 }
