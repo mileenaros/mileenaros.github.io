@@ -75,7 +75,6 @@ a {
 }
 
 .code {
-  margin: 0 3rem;
   padding: 1rem;
   background-color: rgb(228, 227, 227);
   font-family: 'Courier New', Courier, monospace;
@@ -85,6 +84,7 @@ a {
   text-decoration: underline;
   margin-left: auto;
   margin-right: auto;
+  position: absolute;
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
@@ -97,6 +97,7 @@ a {
   padding: 0.5rem;
   flex-flow: column;
   background-color: rgb(228, 227, 227);
+  margin: 0;
 }
 
 .row {
