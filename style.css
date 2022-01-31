@@ -68,6 +68,10 @@ a {
   text-decoration: none;
 }
 
+.profile-picture {
+  margin: auto;
+}
+
 .code {
   margin: 0 3rem;
   padding: 1rem;
@@ -77,15 +81,21 @@ a {
 
 .demo {
   text-decoration: underline;
+  margin: auto;
 }
 
 .gallery {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 1rem;
   padding: 0.5rem;
-  flex-wrap: wrap;
+  flex-flow: column;
   background-color: rgb(228, 227, 227);
+}
+
+.row {
+  width: 100%;
+  justify-content: space-around;
 }
