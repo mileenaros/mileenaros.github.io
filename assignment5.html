@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html> 
+
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+        <title>Mileena's HCDE 439 Physical Computing Page</title> 
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body> 
+
+        <div class="header">
+            <h1>Mileena's Assignment 4</h1>
+        </div>
+
+        <div class="gallery">
+            <div class="row">
+                <!-- CIRCUIT AND EXAMPLE OUTPUT -->
+                <img src="a5-circuit.jpeg" width=400>
+                <img src="a5-schematic.jpg" width=400>
+                <p>I used 10 1M ohm resistors to increase the sensitivity of my capacitive sensor.</p>
+            </div>
+            <div class="row">
+                <!-- CALCULATIONS -->
+                <img src="a5-calculations.jpeg" width=400>
+            </div>
+        </div>
+        <p>
+            <a class="demo" href="https://drive.google.com/file/d/1hHy0OMszds_K9pfr-XQV62Uk65dDzaR4/view?usp=sharing">Check out a demo of my circuit HERE!</a>
+        </p>
+        <p class="code">
+            // Mileena Ros
+            // HCDE 439
+            // Feb 1421 2022
+            // References: Arduino Playground Capacitive Sensing Library reference at
+            // https://playground.arduino.cc/Main/CapacitiveSensor/ and Fade example
+            
+            #include <CapacitiveSensor.h>
+            
+            // 1 megaohm resistor between pins 4 and 2, pin 4 is sendPin, pin 2 is receivePin
+            CapacitiveSensor cs_4_2 = CapacitiveSensor(4, 2);
+            int led = 9;
+            int brightness = 0;
+            int fadeAmount = 5;
+            
+            void setup() {
+              // initialize pin 9 to correspond to led strip
+              pinMode(led, OUTPUT);
+              // re-calibration - checking lowest sensed value to use as baseline - every 4s
+              cs_4_2.set_CS_AutocaL_Millis(4000);
+            }
+            
+            void loop() {
+              // returns a long containing the sensed capacitance and
+              // keeps track of the lowest sensed value for reference
+              long total = cs_4_2.capacitiveSensor(30);
+            
+              // if a high value of capacitance is sensed (value chosen
+              // based on test values that correspond to direct contact)
+              // then begin led fade
+              if (total >= 1000) {
+                // set the brightness of the led strip
+                analogWrite(led, brightness);
+                
+                // change the brightness of the led strip based on fadeAmount
+                brightness = brightness + fadeAmount;
+            
+                // if brightness is below 0 or above 255 (the range of
+                // analogWrite) reverse direction of fade
+                if (brightness <= 0 || brightness >= 255) {
+                  fadeAmount = -fadeAmount;
+                }
+                // delay for fade effect instead of instant change
+                delay(30);
+              }
+            }
+        </p>
+    </body>
+
+</html>
