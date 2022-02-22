@@ -19,7 +19,6 @@
                 <!-- CIRCUIT AND EXAMPLE OUTPUT -->
                 <img src="a5-circuit.jpeg" width=400>
                 <img src="a5-schematic.jpeg" width=400>
-                <p>I used 10 1M ohm resistors to increase the sensitivity of my capacitive sensor.</p>
             </div>
             <div class="row">
                 <!-- CALCULATIONS -->
@@ -51,28 +50,28 @@
                     <br>cs_4_2.set_CS_AutocaL_Millis(4000);
                     <br>}
             
-            void loop() {
-              // returns a long containing the sensed capacitance and
-              // keeps track of the lowest sensed value for reference
-              long total = cs_4_2.capacitiveSensor(30);
+                    <br>void loop() {
+                        <br>// returns a long containing the sensed capacitance and
+                        <br>// keeps track of the lowest sensed value for reference
+                        <br>long total = cs_4_2.capacitiveSensor(30);
             
-              // if a high value of capacitance is sensed (value chosen
-              // based on test values that correspond to direct contact)
-              // then begin led fade
-              if (total >= 1000) {
-                // set the brightness of the led strip
-                analogWrite(led, brightness);
+                        <br>// if a high value of capacitance is sensed (value chosen
+                        <br>// based on test values that correspond to direct contact)
+                        <br>// then begin led fade
+                        <br>if (total >= 1000) {
+                            <br>// set the brightness of the led strip
+                            <br>analogWrite(led, brightness);
                 
-                // change the brightness of the led strip based on fadeAmount
-                brightness = brightness + fadeAmount;
+                            <br>// change the brightness of the led strip based on fadeAmount
+                            <br>brightness = brightness + fadeAmount;
             
-                // if brightness is below 0 or above 255 (the range of
-                // analogWrite) reverse direction of fade
-                if (brightness <= 0 || brightness >= 255) {
-                  fadeAmount = -fadeAmount;
-                }
-                // delay for fade effect instead of instant change
-                delay(30);
+                            <br>// if brightness is below 0 or above 255 (the range of
+                            <br>// analogWrite) reverse direction of fade
+                            <br>if (brightness <= 0 || brightness >= 255) {
+                                <br>fadeAmount = -fadeAmount;
+                                <br>}
+                                <br>// delay for fade effect instead of instant change
+                                <br>delay(30);
               }
             }
         </p>
