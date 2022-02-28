@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html> 
+
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+        <title>Mileena's HCDE 439 Physical Computing Page</title> 
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body> 
+
+        <div class="header">
+            <h1>Mileena's Assignment 6</h1>
+        </div>
+
+        <div class="gallery">
+            <div class="row">
+                <!-- CIRCUIT AND SCHEMATIC -->
+                <img src="a6-circuit.jpeg" width=400>
+                <img src="a6-schematic.jpeg" width=400>
+            </div>
+            <div class="row">
+                <!-- CALCULATIONS -->
+                <img src="a6-calculations.jpeg" width=400>
+            </div>
+        </div>
+        <p>
+            <a class="demo" href="https://drive.google.com/drive/folders/1I9Ow2k1jopRRwkZlgEhzqvPZshFrhLRt?usp=sharing">Check out a demo of my circuit HERE!</a>
+        </p>
+        <p class="code">
+            <br>void setup() {
+                <br>// put your setup code here, to run once:
+                <br>Serial.begin(9600);           // initialize serial communication
+                <br>Serial.setTimeout(10);        // set the timeout for parseInt
+                <br>pinMode(A0, INPUT);           // joystick x val
+                <br>pinMode(A1, INPUT);           // joystick y val
+                <br>pinMode(5, OUTPUT);           // red led
+            <br>}
+              
+            <br>void loop() {
+                <br>// put your main code here, to run repeatedly:
+                <br>if (Serial.available() > 0) { // if there is serial data
+                    <br>int inByte = Serial.read(); // read the serial data
+                    <br>// Serial.write(inByte);
+                    <br>analogWrite(5, inByte);     // write inByte to led
+                <br>}
+                <br>int s1 = analogRead(A0);      // read x val of joystick
+                <br>int s2 = analogRead(A1);      // read y val of joystick
+                <br>Serial.print("[");
+                <br>Serial.print(s1);
+                <br>Serial.print(",");
+                <br>Serial.print(s2);
+                <br>Serial.println("]");          // print to serial as an array
+            <br>}
+        </p>
+        <p class="code">
+<br>var serial; // variable to hold an instance of the serialport library
+<br>var portName = '/dev/tty.usbmodem2101' // rename to the name of your port
+<br>var dataArray = []; // some data coming in over serial
+
+<br>function setup() {
+    <br>serial = new p5.SerialPort();       // make a new instance of the serialport library
+    <br>serial.on('list', printList);       // set a callback function for the serialport list event
+    <br>serial.on('connected', serverConnected); // callback for connecting to the server
+    <br>serial.on('open', portOpen);        // callback for the port opening
+    <br>serial.on('data', serialEvent);     // callback for when new data arrives
+    <br>serial.on('error', serialError);    // callback for errors
+    <br>serial.on('close', portClose);      // callback for the port closing
+ 
+    <br>serial.list();                      // list the serial ports
+    <br>serial.open(portName);              // open a serial port
+    <br>createCanvas(windowWidth, windowHeight);
+    <br>background(0x08, 0x16, 0x40);
+<br>}
+ 
+<br>// get the list of ports:
+<br>function printList(portList) {
+    <br>// portList is an array of serial port names
+    <br>for (var i = 0; i < portList.length; i++) {
+        <br>// display the list the console:
+        <br>print(i + " " + portList[i]);
+    <br>}
+<br>}
+
+<br>function serverConnected() {
+    <br>print('Connected to server.');
+<br>}
+ 
+<br>function portOpen() {
+    <br>print('The serial port opened.')
+<br>}
+ 
+<br>function serialError(err) {
+    <br>print('Something went wrong with the serial port: ' + err);
+<br>}
+ 
+<br>function portClose() {
+    <br>print('The serial port closed.');
+<br>}
+
+<br>function serialEvent() {
+    <br>if (serial.available()) {
+        <br>var datastring = serial.readLine(); // read in some serial
+        <br>var newarray; 
+        <br>try {
+            <br>newarray = JSON.parse(datastring); // can we parse the serial
+        <br>} catch(err) {
+            <br>///console.log(err);
+        <br>}
+        <br>if (typeof(newarray) == 'object') {
+            <br>dataArray = newarray;
+        <br>}
+        <br>console.log("Got back " + datastring);
+    <br>} 
+<br>}
+
+<br>// while any key is pressed led will turn on at max brightness (255)
+<br>function keyPressed() {
+    <br>serial.write(255);
+<br>}
+
+<br>// when any key is released led will turn off (0)
+<br>function keyReleased() {
+    <br>serial.write(0);
+<br>}
+
+<br>function draw() {
+    <br>background(195, 240, 177); // set background color
+    <br>noStroke(); // remove border
+    <br>xPos = map(dataArray[0], 0, 1023, 0, width);    // map x val of joystick to width of window
+    <br>yPos = map(dataArray[1], 0, 1023, 0, height);   // map y val of joystick to height of window
+    <br>fill(255);
+    <br>// circle(mouseX, mouseY, 50);
+    <br>circle(xPos, yPos, 50); // draw circle at mapped x and y vals based on joystick input
+<br>}
+        </p>
+    </body>
+
+</html>
