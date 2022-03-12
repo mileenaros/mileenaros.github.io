@@ -79,6 +79,10 @@
             <br> - one hour before the user's bedtime to the bedtime: set LEDs to dim level of brightness
             <br>If the time is not in either range: set LED to brightness determined by measured levels of
             <br>brightness (input from photoresistor). Dim room => bright lamp. Bright room => dim lamp.
+            <br>Libraries (from code):
+            <br>#include <Wire.h>
+            <br>#include <TimeLib.h>
+            <br>#include <DS1307RTC.h>
         </p>
 
         <div class="gallery">
@@ -92,9 +96,9 @@
             <a class="demo" href="https://drive.google.com/file/d/1dK6IInZ6dMm_IUuUxBFT7ymWRAgFwDBA/view">Check out a demo of my final project HERE!</a>
         </p>
         <p class="code">
-            <br>#include "<Wire.h>"
-            <br>#include "<TimeLib.h>"
-            <br>#include "<DS1307RTC.h>"
+            <br>#include <Wire.h>
+            <br>#include <TimeLib.h>
+            <br>#include <DS1307RTC.h>
                 
             <br>int lightSensor = A0;   // light sensor is plugged into pin A0
             <br>int led = 9;            // led strip is plugged into pin 9
