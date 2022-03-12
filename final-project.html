@@ -1,0 +1,226 @@
+<!DOCTYPE html> 
+<html> 
+
+    <head> 
+        <meta charset="utf-8"> 
+        <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+        <title>Mileena's HCDE 439 Physical Computing Page</title> 
+        <link href="style.css" media="screen" rel="stylesheet" type="text/css" />
+    </head>
+
+    <body> 
+
+        <div class="header">
+            <h1>Mileena's Final Project: Alarm Lamp</h1>
+        </div>
+
+        <p>
+            <br>Concept and Motivation: Have you ever slept through your alarm? Do you
+            <br>ever wake up to the sound of your alarm incredibly irritated? Does
+            <br>your alarm ever interrupt your cool dreams? For me, the answer to all
+            <br>of those questions is YES.
+            <br><br>
+            <br>I created the Alarm Lamp in order to address these issues. The inspiration
+            <br>behind Alarm Lamp is how my roommate used to turn on the lights while I was
+            <br>sleeping early in the morning, and I would wake up gradually and usually
+            <br>happily, much earlier than the alarm I had set on my phone. Similarly, it's
+            <br>usually hard to sleep when the sun or streetlights are shining in your face.
+            <br><br>
+            <br>The aesthetic/external design of Alarm Lamp is inspired by @leahsfieldnotes
+            <br>on YouTube!
+            <br><br>
+            <br>There are a few things I wanted to achieve with my circuitry and firmware
+            <br>when I conceptualized Alarm Lamp:
+            <br> - Turn on when I want to wake up
+            <br> - Turn/be off when I go to sleep
+            <br> - Use different levels of brightness to contribute to the sleep schedule
+            <br>I want
+            <br> - Use different levels of brightness in response to the brightness of
+            <br>the room (since I can utilize natural light or other lamps as well and don't want
+            <br>my room to be TOO bright)
+            <br> - Turn on/off completely (i.e., no alarm) using a button
+            <br><br>
+            <br> The functionality of Alarm Lamp that I implemented is as follows:
+            <br>1. At wakeup time, the lamp will turn on at maximum brightness for one hour
+            <br>2. After the wakeup hour is over, the brightness of the lamp is relative to 
+            <br>the measured light levels of the room.
+            <br>3. One hour prior to bedtime, the lamp will be set to a dim brightness to encourage
+            <br>wind down time.
+            <br>4. An on/off button can turn the entire Alarm Lamp off (will not turn on at wakeup
+            <br>or throughout the day)
+            <br><br>
+            <br>Features and Implentation:
+            <br>Alarm Clock: Real Time Clock Module (DS1307)
+            <br>On/Off: Button
+            <br>Light: LED strips
+            <br>Light Measurement: Photoresistor
+            <br><br>
+            <br>Resistors/Calculations:
+            <br>The circuit uses 10K ohm resistors for both the photoresistor and button.
+            <br>The button utilizes this level so that the electrons have a path to ground when
+            <br>the switch is open and we thus measure 0V.
+            <br>The photoresistor uses this level by the following calculations:
+            <br>Photoresistor = approx. 10K ohms resistance at 10 lux.
+            <br>V_out = V_in * R_2 / (R_1 + R_2)
+            <br>V_in = 5V; R_1 = 1OK ohms
+            <br>Choosing a 10K ohm resistor for R_2 (i.e., R_2 = R_1) gives: V_out = 1/2 * V_in = 2.5V
+            <br>If photoresistor resistance is 0 ohms then: V_out = 1 * V_in = 5V
+            <br>Thus we have a measurable range of 2.5-5V at the voltage divider at pin A0
+            <br><br>
+            <br>Code:
+            <br>The logic of my code follows this flow:
+            <br>Is the system on or off? (input from button)
+            <br>If the system is off: do not turn LEDs on.
+            <br>If the system is on: check the current time and see if it is in the range of the wake up time and bedtime
+            <br>set by the user. (data from RTC module and libraries)
+            <br>If not in the user's wake-up to bedtime range: do not turn LEDs on.
+            <br>If in the user's wake-up to bedtime range: check if the current time is
+            <br> - the user's alarm to one hour after: set LEDs to max brightness
+            <br> - one hour before the user's bedtime to the bedtime: set LEDs to dim level of brightness
+            <br>If the time is not in either range: set LED to brightness determined by measured levels of
+            <br>brightness (input from photoresistor). Dim room => bright lamp. Bright room => dim lamp.
+        </p>
+
+        <div class="gallery">
+            <div class="row">
+                <!-- CIRCUIT AND SCHEMATIC -->
+                <img src="fp-circuit.jpeg" width=400>
+                <img src="fp-schematic.jpg" width=400>
+            </div>
+        </div>
+        <p>
+            <a class="demo" href="https://drive.google.com/file/d/1dK6IInZ6dMm_IUuUxBFT7ymWRAgFwDBA/view">Check out a demo of my final project HERE!</a>
+        </p>
+        <p class="code">
+            <br>#include <Wire.h>
+            <br>#include <TimeLib.h>
+            <br>#include <DS1307RTC.h>
+                
+            <br>int lightSensor = A0;   // light sensor is plugged into pin A0
+            <br>int led = 9;            // led strip is plugged into pin 9
+            <br>bool isOn = true;       // on/off switch for entire system; uses button on pin 2
+            <br>int onOffSwitch = 2;    // on/off switch (button) is plugged into pin 2
+            <br>int buttonState = 0;    // variable for reading onOffSwitch status
+            
+            <br>int alarmHour = 5;     // hour value for wake up, range 0-23
+            <br>int bedtimeHour = 7;    // hour value for bedtime, range 0-23, MUST BE MORE THAN 1 HOUR AFTER ALARM
+            
+            <br>void setup() {
+            
+                <br>Serial.begin(9600);           // set data rate to 9600 bits/s
+                <br>pinMode(onOffSwitch, INPUT);  // set on/off switch (button)
+                <br>pinMode(lightSensor, INPUT);  // set light sensor pin
+                <br>pinMode(led, OUTPUT);         // set led pin
+                
+                <br>while (!Serial) ;             // wait until Arduino Serial Monitor opens
+                <br>setSyncProvider(RTC.get);     // the function to get the time from the RTC
+                <br>if (timeStatus()!= timeSet) { // check for error RTC sync
+                    <br>Serial.println("Unable to sync with the RTC");
+                <br>} else {
+                    <br>Serial.println("RTC has set the system time"); 
+                <br>}
+                  
+            <br>}
+                
+            <br>void loop() {
+                <br>digitalClockDisplay();  // see method below
+                <br>// check to see if system is on (default = on)
+                <br>// turn on/off based on onOffSwitch sensor readings
+                <br>// read button state
+                <br>buttonState = digitalRead(onOffSwitch);
+                <br>if (buttonState == HIGH) {
+                    <br>isOn = !isOn;
+                <br>}
+                  
+                <br>// if system is on (isOn == true)
+                <br>if (isOn) {
+                
+                    <br>// handles calculation of end of wakeup period and bedtime period start (values will be in range 0-23)
+                    <br>int alarmEnd = (alarmHour + 1) % 24;
+                    <br>int bedtimeStart = bedtimeHour - 1;
+                    <br>if (bedtimeStart == -1) {
+                        <br>bedtimeStart = 23;
+                    <br>}
+                    
+                    <br>// if in awake time range from alarmHour to bedtimeHour
+                    <br>if ((hour() >= alarmHour) && (hour() <= bedtimeHour)) {
+                      
+                        <br>// time is 1 hour after wake up time
+                        <br>if ((hour() >= alarmHour) && (hour() <= alarmEnd)) {
+                        
+                            <br>// set led brightness to max after waking up
+                            <br>analogWrite(led, 255);
+                
+                            <br>// for testing
+                            <br>Serial.println("Wake-up");
+                
+                        <br>// time is 1 hour before bedtime
+                        <br>} else if ((hour() >= bedtimeStart) && (hour() <= bedtimeHour)) {
+                
+                            <br>// for testing
+                            <br>Serial.println("Pre-bedtime");
+                        
+                            <br>// set led brightness to dim before sleeping
+                            <br>analogWrite(led, 20);
+                        
+                        <br>} else {
+                
+                            <br>// for testing
+                            <br>Serial.println("System on in general time range");
+                        
+                            <br>// read sensor value from light sensor
+                            <br>int sensorValue = analogRead(lightSensor);
+                            <br>// for calibration:
+                            <br>// Serial.println(sensorValue);
+                            <br>// constrain the sensor value to range decided based on testing
+                            <br>sensorValue = constrain(sensorValue, 150, 500);
+                            <br>// map sensor value to the range of analog out
+                            <br>int outputValue = map(sensorValue, 150, 500, 20, 255);
+                            <br>// augment led brightness using mapped value
+                            <br>// bright room/reading => output less light
+                            <br>analogWrite(led, 255 - outputValue);
+                        
+                        <br>}
+                      
+                    <br>} else {
+                    
+                        <br>// turn led off when not in awake time range
+                        <br>Serial.println("Not in time range");
+                        <br>analogWrite(led, 0);
+                    
+                    <br>}
+                
+                <br>} else {
+                   
+                    <br>// turn led off when system is not on (isOn == false)
+                    <br>analogWrite(led, 0);
+                    <br>Serial.println("System off");
+                    
+                <br>}
+                
+                <br>// delay by 0.2s for stability
+                <br>delay(200);
+                  
+            <br>}
+                
+                
+            <br>// digital clock display of the time
+            <br>void digitalClockDisplay(){
+                <br>Serial.print(hour());    // prints hour to Serial monitor
+                <br>printDigits(minute());   // prints minute to Serial monitor
+                <br>Serial.println();
+            <br>}
+                
+            <br>// utility function for digital clock display: prints preceding colon and leading 0
+            <br>// prints ":0X" or ":XX" to properly display minutes
+            <br>void printDigits(int digits){
+                <br>Serial.print(":");
+                <br>if (digits < 10) {
+                    <br>Serial.print('0');
+                <br>}
+                <br>Serial.print(digits);
+            <br>}
+        </p>
+    </body>
+
+</html>
